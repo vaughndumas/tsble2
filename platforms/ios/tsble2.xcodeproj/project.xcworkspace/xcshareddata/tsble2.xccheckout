@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>8EC6CF44-7905-4D85-91D3-F8E82E843278</string>
+	<key>IDESourceControlProjectName</key>
+	<string>tsble2</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>F3368BC35DD2C9932BD58FD2F9F8B40D29CFC369</key>
+		<string>https://github.com/vaughndumas/tsble2</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>platforms/ios/tsble2.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>F3368BC35DD2C9932BD58FD2F9F8B40D29CFC369</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/vaughndumas/tsble2</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>F3368BC35DD2C9932BD58FD2F9F8B40D29CFC369</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F3368BC35DD2C9932BD58FD2F9F8B40D29CFC369</string>
+			<key>IDESourceControlWCCName</key>
+			<string>tsble2</string>
+		</dict>
+	</array>
+</dict>
+</plist>
