@@ -31,6 +31,9 @@
     <feature name="Vibration">
         <param name="ios-package" value="CDVVibration" />
     </feature>
+    <feature name="Geolocation">
+        <param name="ios-package" value="CDVLocation" />
+    </feature>
     <name>tsble2</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
@@ -40,4 +43,5 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <plugin name="org.apache.cordova.geolocation" value="org.apache.cordova.geolocation" />
 </widget>

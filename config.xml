@@ -9,4 +9,5 @@
     </author>
     <content src="index.html"/>
     <access origin="*"/>
+    <plugin name="org.apache.cordova.geolocation" value="org.apache.cordova.geolocation"/>
 </widget>
