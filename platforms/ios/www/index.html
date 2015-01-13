@@ -14,6 +14,7 @@
 	</style>
 
 	<script>
+            var vg_position;
 	// Redirect console.log to Evothings Workbench.
 	if (window.hyper && window.hyper.log) { console.log = hyper.log }
 	</script>
@@ -36,6 +37,7 @@
     // onSuccess Geolocation
     //
     function onSuccess(position) {
+        vg_position = position;
         var element = document.getElementById('geolocation');
         element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
                             'Longitude: '          + position.coords.longitude             + '<br />' +
@@ -45,6 +47,10 @@
                             'Heading: '            + position.coords.heading               + '<br />' +
                             'Speed: '              + position.coords.speed                 + '<br />' +
                             'Timestamp: '          + position.timestamp                    + '<br />';
+        var d = new Date();
+        element.innerHTML += "Current date: " + d.toDateString() + "<br />"
+                          + "GMT: " + d.toGMTString();
+        
     }
 
     // onError Callback receives a PositionError object
