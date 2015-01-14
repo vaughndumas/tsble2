@@ -2,13 +2,12 @@
 function send_dev1(x_device) {
     v_date = new Date();
     v_dts = v_date.getFullYear() + "-" +
-                                v_date.getMonth()+1 + "-" +
-                                v_date.getDate() + " " +
-                                v_date.getHours() + ":" +
-                                v_date.getMinutes() + ":" +
-                                v_date.getSeconds();
-    v_xml = '<?xml version="1.0" encoding="UTF-8"?>'
-          + '<document_root>'
+                                ('00' + v_date.getMonth()+1).slice(-2) + "-" +
+                                ('00' + v_date.getDate()).slice(-2) + " " +
+                                ('00' + v_date.getHours()).slice(-2) + ":" +
+                                ('00' + v_date.getMinutes()).slice(-2) + ":" +
+                                ('00' + v_date.getSeconds()).slice(-2);
+    v_xml = '<document_root>'
           + '<custcode>TS</custcode>'
           + '<hardwareType>1</hardwareType>'
           + '<datetimesaved>' + v_dts + '</datetimesaved>'
@@ -16,32 +15,55 @@ function send_dev1(x_device) {
           + '<hardwareId>' + '455096622' + '</hardwareId>'
           + '<latitude>' + vg_position.coords.latitude + '</latitude>'
           + '<longitude>' + vg_position.coords.longitude + '</longitude>'
-//          + '<heading>' + vg_position.coords.heading + '</heading>'
-//          + '<speed>' + vg_position.coords.speed + '</speed>'
+          + '<heading>' + Math.abs(vg_position.coords.heading).toFixed(1) + '</heading>'
+          + '<speed>' + Math.abs(vg_position.coords.speed).toFixed(1) + '</speed>'
           + '<altitude>' + vg_position.coords.altitude + '</altitude>'
           + '<eventtype>1001</eventtype>'
           + '<eventcode>0</eventcode>'
           + '<messageID>100</messageID>'
-          + '<RSSI>' + x_device.rssi + '</RSSI>'
-          + '<DriverID>' + x_device.name + '</DriverID>'
+          + '<rssi>' + x_device.rssi + '</rssi>'
+          + '<deviceName>' + x_device.name + '</deviceName>'
           + '</document_root>';
     var v_xml_doc = $.parseXML(v_xml);
-    alert(v_xml);
+    //alert(v_xml);
     $(function() {
         $.ajax({
             url:  "http://dev1.thing-server.com/Thingevents",
             type: "POST",
-            processData: false,
-            data: {xml: v_xml_doc}
+            dataType:  "xml",
+            data: {xml: v_xml},
         })
         .done(function(x_data) {
             v_return = x_data;
-            alert(v_return);
+//            alert('data back: ' + v_return);
         })
         .error(function(jqXHR, textStatus, errorThrown) {
-            alert(jqXHR.responseText);
+//            alert(jqXHR.responseText);
         })
     });
+    // Send the dweet record
+    v_dweet_url = "https://dweet.io/dweet/for/trackingsolutions_ble?deviceaddress=" + x_device.address
+          + "&rssi=" + x_device.rssi
+          + "&devicename=" + x_device.name;
+    $(function() {
+        $.ajax({
+            url:  v_dweet_url,
+            type: "GET"
+        })
+    });
+    
+    // Send to buddy
+    Buddy.init("bbbbbc.BdcbbltbdjMx","82CFEBE0-DC6E-4753-A267-694B364FF021" );
+    Buddy.loginUser('tsble', 'tracking');
+    var v_buddy_data = {
+      location: vg_position.coords.latitude + "," + vg_position.coords.longitude,
+      comment: "datetimesaved: " + v_dts + ", hardwareId: 455096622, " + "rssi: " +  x_device.rssi 
+             + ", deviceName: " + x_device.name,
+      tag: "BLE",
+      readPermission: "App",
+      writePermission: "User"
+    };
+    Buddy.post('/checkins', v_buddy_data);
 }
 // Application object.
 var app = {};
@@ -115,6 +137,7 @@ app.ui.onStopScanButton = function()
 {
 	app.stopScan();
 	app.devices = {};
+        devicesSent = "";
 	app.ui.displayStatus('Scan Paused');
 	app.ui.displayDeviceList();
 	clearInterval(app.ui.updateTimer);
@@ -175,7 +198,10 @@ app.ui.displayDeviceList = function()
 			);
 
 			$('#found-devices').append(element);
-                        send_dev1(device);
+                        if (devicesSent.indexOf(device.address) < 0) {
+                            send_dev1(device);
+                            devicesSent += device.address + ',';
+                        }
 		}
 	});
 };

@@ -6,6 +6,20 @@ and open the template in the editor.
 -->
 
 
-<root>
-    
-</root>
+<document_root>
+    <custcode>TS</custcode>
+    <hardwareType>1</hardwareType>
+    <datetimesaved></datetimesaved>
+    <gmtdatetime></gmtdatetime>
+    <hardwareId></hardwareId>
+    <latitude></latitude>
+    <longitude></longitude>
+    <heading></heading>
+    <speed></speed>
+    <RSSI></RSSI>
+    <altitude></altitude>
+    <eventtype>1001</eventtype>
+    <eventcode>0</eventcode>
+    <messageID>100</messageID>
+    <DriverID>name of the device</DriverID>
+</document_root>

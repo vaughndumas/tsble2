@@ -15,6 +15,10 @@
 
 	<script>
             var vg_position;
+            // List of devices sent.  
+            // While the program is running it will only send a device's info once
+            var devicesSent = "";
+
 	// Redirect console.log to Evothings Workbench.
 	if (window.hyper && window.hyper.log) { console.log = hyper.log }
 	</script>
@@ -23,6 +27,7 @@
 	<script src="libs/jquery/jquery.js"></script>
 	<script src="libs/evothings/evothings.js"></script>
 	<script src="app.js"></script>
+        <script src="buddy.js" type="text/javascript"></script>
         <script>
             // Wait for device API libraries to load
     //
