@@ -22,10 +22,9 @@ function send_dev1(x_device) {
           + '<eventcode>0</eventcode>'
           + '<messageID>100</messageID>'
           + '<rssi>' + x_device.rssi + '</rssi>'
-          + '<deviceName>' + x_device.name + '</deviceName>'
+          + '<deviceName>' + x_device.name.replace(/[&]/g,'') + '</deviceName>'
           + '</document_root>';
-    var v_xml_doc = $.parseXML(v_xml);
-    //alert(v_xml);
+//    var v_xml_doc = $.parseXML(v_xml);
     $(function() {
         $.ajax({
             url:  "http://dev1.thing-server.com/Thingevents",
@@ -35,16 +34,16 @@ function send_dev1(x_device) {
         })
         .done(function(x_data) {
             v_return = x_data;
-//            alert('data back: ' + v_return);
         })
         .error(function(jqXHR, textStatus, errorThrown) {
 //            alert(jqXHR.responseText);
         })
     });
+
     // Send the dweet record
     v_dweet_url = "https://dweet.io/dweet/for/trackingsolutions_ble?deviceaddress=" + x_device.address
-          + "&rssi=" + x_device.rssi
-          + "&devicename=" + x_device.name;
+          + "&rssi=" + x_device.rssi;
+//          + "&devicename=" + x_device.name;
     $(function() {
         $.ajax({
             url:  v_dweet_url,
@@ -124,12 +123,23 @@ app.stopScan = function()
 	evothings.ble.stopScan();
 };
 
+app.ui.resetScan = function() {
+    	app.stopScan();
+	app.devices = {};
+        devicesSent = "a";
+        $('#found-devices').empty();
+	app.ui.displayStatus('Scan reset');
+        
+        app.startScan(app.ui.deviceFound);
+	app.ui.displayStatus('Scanning...');
+};
 // Called when Start Scan button is selected.
 app.ui.onStartScanButton = function()
 {
 	app.startScan(app.ui.deviceFound);
 	app.ui.displayStatus('Scanning...');
 	app.ui.updateTimer = setInterval(app.ui.displayDeviceList, 500);
+        app.ui.rescanTimer = setInterval(app.ui.resetScan, 60000);
 };
 
 // Called when Stop Scan button is selected.
@@ -141,6 +151,7 @@ app.ui.onStopScanButton = function()
 	app.ui.displayStatus('Scan Paused');
 	app.ui.displayDeviceList();
 	clearInterval(app.ui.updateTimer);
+        clearInterval(app.ui.rescanTimer);
 };
 
 // Called when a device is found.

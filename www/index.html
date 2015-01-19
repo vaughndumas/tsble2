@@ -36,6 +36,8 @@
     // device APIs are available
     //
     function onDeviceReady() {
+        var element2 = document.getElementById('devinfo');
+        element2.innerHTML = 'Device model: ' + device.model + '<br />';
         navigator.geolocation.getCurrentPosition(onSuccess, onError);
     }
 
@@ -85,6 +87,8 @@
 
 	<ul id="found-devices" class="dynamic"></ul>
 
+        <h2>Device information</h2>
+        <p id="devinfo"></p>
 	<h2>GPS stuff</h2>
         
         <p id="geolocation">Looking for you...</p>
