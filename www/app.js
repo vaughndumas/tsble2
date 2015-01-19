@@ -12,7 +12,7 @@ function send_dev1(x_device) {
           + '<hardwareType>1</hardwareType>'
           + '<datetimesaved>' + v_dts + '</datetimesaved>'
           + '<gmtdatetime>' + v_dts + '</gmtdatetime>'
-          + '<hardwareId>' + '455096622' + '</hardwareId>'
+          + '<hardwareId>' + '488057424' + '</hardwareId>'
           + '<latitude>' + vg_position.coords.latitude + '</latitude>'
           + '<longitude>' + vg_position.coords.longitude + '</longitude>'
           + '<heading>' + Math.abs(vg_position.coords.heading).toFixed(1) + '</heading>'
